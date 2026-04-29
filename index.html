@@ -37,7 +37,7 @@
 
 <script>
 async function getData() {
-  let res = await fetch("https://api.thingspeak.com/channels/3362022/fields/1.json?api_key=ORXNRWNBY63OSOXU&results=2");
+  let res = await fetch("fetch("https://api.thingspeak.com/channels/3362022/fields/1/last.json")");
   let data = await res.json();
 
   let val = data.field1;
