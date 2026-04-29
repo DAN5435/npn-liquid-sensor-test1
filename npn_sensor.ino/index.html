@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IV Monitoring System</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 100px;
+      transition: 0.5s;
+    }
+
+    .card {
+      display: inline-block;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    #status {
+      font-size: 50px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>IV Status Monitor</h1>
+  <p id="status">Loading...</p>
+</div>
+
+<script>
+async function getData() {
+  let res = await fetch("https://api.thingspeak.com/channels/3362022/status.json");
+  let data = await res.json();
+
+  let val = data.field1;
+
+  let statusText = document.getElementById("status");
+
+  if (val == "1") {
+    statusText.innerText = "Have IV";
+    document.body.style.backgroundColor = "#b6fcb6"; // green
+  } else {
+    statusText.innerText = "Low IV";
+    document.body.style.backgroundColor = "#ffb3b3"; // red
+  }
+}
+
+// refresh every 5 sec
+setInterval(getData, 5000);
+getData();
+</script>
+
+</body>
+</html>
